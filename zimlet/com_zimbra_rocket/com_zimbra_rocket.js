@@ -45,7 +45,7 @@ ZimbraRocketZimlet.prototype.setIframe = function()
 {
    try {
    var zimletInstance = appCtxt._zimletMgr.getZimletByName('com_zimbra_rocket').handlerObject;	   
-   zimletInstance.ZimbraRocketTab = zimletInstance.createApp("Rocket", "", "Rocket");
+   zimletInstance.ZimbraRocketTab = zimletInstance.createApp("Rocket.Chat", "", "Rocket.Chat");
    var app = appCtxt.getApp(zimletInstance.ZimbraRocketTab);
    var appPosition = document.getElementById('skin_container_app_new_button').getBoundingClientRect();
    app.setContent('<div style="position: fixed; top:'+appPosition.y+'px; left:0; width:100%; height:92%; border:0px;"><iframe id="ZimbraRocketFrame" style="z-index:2; left:0; width:100%; height:100%; border:0px;" src=\"'+zimletInstance._zimletContext.getConfig("rocketurl")+'\"></div>');   
@@ -82,6 +82,7 @@ function(appName, active) {
    var zimletInstance = appCtxt._zimletMgr.getZimletByName('com_zimbra_rocket').handlerObject;
 	if (active)
    {
+      document.title = 'Zimbra: ' + 'Rocket.Chat';
       //In the Zimbra tab hide the left menu bar that is displayed by default in Zimbra, also hide the mini calendar
       document.getElementById('z_sash').style.display = "none";   
       //Users that click the tab directly after logging in, will still be served with the calendar, as it is normal
