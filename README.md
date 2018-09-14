@@ -47,9 +47,11 @@ Edit the /tmp/config_template.xml.tmp file according to your needs. Import the n
       zmzimletctl configure /tmp/config_template.xml.tmp
 
 2. **Logon-only integration**
-Follow the same steps as under `Full integration` except when configuring the Zimlet set `createRocketAccount` to `false`. You may also want to configure Rocket to use Zimbra LDAP. See steps below.
+Follow the same steps as under `Full integration` except when configuring the Zimlet set `createRocketAccount` to `false`.  The Zimlet assumes you created the account on Rocket chat. So if your Zimbra account is user@example.com a Rocket user account user.example.com should exist.
 
 3. **Basic integration**
+In this case you may want to configure Rocket to use Zimbra LDAP. See steps below.
+
 You must configure and deploy the Zimlet:
 Get a com_zimbra_rocket.zip (from Github releases) and as Zimbra user:
 
