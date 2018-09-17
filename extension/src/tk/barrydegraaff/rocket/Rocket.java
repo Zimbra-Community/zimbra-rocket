@@ -190,6 +190,7 @@ public class Rocket extends ExtensionHttpHandler {
 
         } catch (Exception ex) {
             //crafted cookie? get out you.
+            ex.printStackTrace();
             responseWriter("unauthorized", resp, null);
             return;
         }
@@ -264,6 +265,7 @@ public class Rocket extends ExtensionHttpHandler {
             resp.getWriter().flush();
             resp.getWriter().close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -289,6 +291,7 @@ public class Rocket extends ExtensionHttpHandler {
             this.loginurl = prop.getProperty("loginurl");
             input.close();
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
 
@@ -331,6 +334,7 @@ public class Rocket extends ExtensionHttpHandler {
                 return false;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -394,6 +398,7 @@ public class Rocket extends ExtensionHttpHandler {
                 return "";
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return "";
         }
     }
@@ -450,6 +455,7 @@ public class Rocket extends ExtensionHttpHandler {
                 return false;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
