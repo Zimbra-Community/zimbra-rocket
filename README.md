@@ -40,7 +40,7 @@ Get a com_zimbra_rocket.zip (from Github releases) and as Zimbra user:
       
 To configure the rocketurl in the Zimlet
 
-      zmzimletctl getConfigTemplate /opt/zimbra/zimlets/com_zimbra_rocket > /tmp/config_template.xml.tmp
+      zmzimletctl getConfigTemplate /opt/zimbra/zimlets-deployed/com_zimbra_rocket > /tmp/config_template.xml.tmp
       
 Edit the /tmp/config_template.xml.tmp file according to your needs. Import the new configuration file by the running following command:
 
