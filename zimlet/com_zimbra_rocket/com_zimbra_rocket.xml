@@ -1,5 +1,5 @@
 <zimlet name="com_zimbra_rocket"
-        version="0.0.2"
+        version="0.0.3"
         target="main compose-window view-window"
         label="Zimbra Rocket"
         description="Zimbra Rocket">
