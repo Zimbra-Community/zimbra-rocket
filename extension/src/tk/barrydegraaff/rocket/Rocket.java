@@ -242,6 +242,7 @@ public class Rocket extends ExtensionHttpHandler {
 
     private void responseWriter(String action, HttpServletResponse resp, String message) {
         try {
+            this.initializeRocketAPI();
             resp.setHeader("Access-Control-Allow-Origin", this.rocketURL);
             resp.setHeader("Access-Control-Allow-Credentials", "true");
             switch (action) {
@@ -254,8 +255,8 @@ public class Rocket extends ExtensionHttpHandler {
                     }
                     break;
                 case "unauthorized":
-                    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    resp.getWriter().write("Not authorized.");
+                    resp.setHeader("Content-Type", "text/html");
+                    resp.getWriter().write("<html><head></head><body><div style=\"background-color:white;color:black;padding:10px\">Please <a target=\"_blank\" href=\"" + this.loginurl + "\">Log in</a>.</div></body>");
                     break;
                 case "error":
                     resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
