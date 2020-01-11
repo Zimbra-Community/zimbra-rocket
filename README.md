@@ -1,4 +1,9 @@
 # Zimbra Rocket
+
+# NOT RECOMMENDED FOR NEW INSTALLATIONS
+
+This integration is hard to maintain as Rocket Chat changes their API often. Also log-in is based on an iframe that does not very future proof and is broken in Firefox now. Also using this integration is a bit difficult if you also want to use the mobile Rocket chat app.
+
 In this Repository you will find a simple Zimlet to connect Zimbra Collaboration with Rocket Chat, and make an amazing integration with both inside the Zimbra Web Client, it will look like:
 
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/zimbra-rocket-ui.png)
