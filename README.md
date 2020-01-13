@@ -1,9 +1,5 @@
 # Zimbra Rocket
 
-# NOT RECOMMENDED FOR NEW INSTALLATIONS
-
-This integration is hard to maintain as Rocket Chat changes their API often. Also log-in is based on an iframe that does not very future proof and is broken in Firefox now. Also using this integration is a bit difficult if you also want to use the mobile Rocket chat app.
-
 In this Repository you will find a simple Zimlet to connect Zimbra Collaboration with Rocket Chat, and make an amazing integration with both inside the Zimbra Web Client, it will look like:
 
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/zimbra-rocket-ui.png)
@@ -15,7 +11,13 @@ On this github we will not cover the installation of Rocket Chat, as it's perfec
 * https://www.digitalocean.com/community/tutorials/how-to-install-configure-and-deploy-rocket-chat-on-ubuntu-14-04
 * https://www.howtoforge.com/tutorial/how-to-install-rocket-chat-with-nginx-on-ubuntu-16-04/
 
-Rocket Chat it's also designed to be deployed on Docker or Ubuntu Snap, which is really great:
+# Check permissions in Rocket Chat IMPORTANT!
+As of Rocket Chat version 2.1.0 you must set the CREATE_TOKENS_FOR_USERS environment variable for this integration to work. If you use snaps:
+
+    echo "CREATE_TOKENS_FOR_USERS=true" > /var/snap/rocketchat-server/common/create-tokens.env
+    sudo systemctl restart snap.rocketchat-server.rocketchat-server.service
+        
+Rocket Chat is designed to be deployed on Docker or Ubuntu Snap, which is really great:
 * https://rocket.chat/docs/installation/docker-containers/
 * https://rocket.chat/docs/installation/manual-installation/ubuntu/snaps/
 
