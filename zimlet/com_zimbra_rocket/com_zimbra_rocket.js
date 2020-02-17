@@ -21,7 +21,7 @@ ZimbraRocketZimlet.prototype.init = function () {
    
       if(zimletInstance.createRocketAccount == "true")
       {
-         if(zimletInstance.accountCreateInteger > zimletInstance.userAccountCreateInteger)
+         if(parseInt(zimletInstance.accountCreateInteger) > parseInt(zimletInstance.userAccountCreateInteger))
          {
             zimletInstance.setUserProperty("accountCreateInteger", zimletInstance.accountCreateInteger, true);
             ZimbraRocketZimlet.prototype.createAccount();
