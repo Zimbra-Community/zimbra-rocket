@@ -121,6 +121,17 @@ import com.zimbra.cs.account.Account;
 import com.zimbra.cs.account.Cos;
 import org.json.JSONObject;
 
+import com.zimbra.common.mime.MimeConstants;
+
+import javax.mail.internet.MimeMessage;
+
+import com.zimbra.common.mime.shim.JavaMailInternetAddress;
+import com.zimbra.cs.mailbox.MailSender;
+import com.zimbra.cs.mailbox.Mailbox;
+import com.zimbra.cs.mailbox.MailboxManager;
+import com.zimbra.cs.mime.Mime;
+import com.zimbra.cs.util.JMSession;
+
 public class Rocket extends ExtensionHttpHandler {
 
     /**
@@ -213,7 +224,7 @@ public class Rocket extends ExtensionHttpHandler {
             switch (paramsMap.get("action")) {
                 case "createUser":
                     String password = newPassword();
-                    if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."))) {
+                    if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
                         responseWriter("ok", resp, password);
                     } else {
                         responseWriter("error", resp, null);
@@ -224,7 +235,7 @@ public class Rocket extends ExtensionHttpHandler {
                     token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
                     if (!"".equals(token)) {
                         resp.setHeader("Content-Type", "application/json");
-                        responseWriter("ok", resp, "{\"loginToken\":\""+token+"\"}");
+                        responseWriter("ok", resp, "{\"loginToken\":\"" + token + "\"}");
                     } else {
                         responseWriter("error", resp, null);
                     }
@@ -408,7 +419,7 @@ public class Rocket extends ExtensionHttpHandler {
     /**
      * Implements: https://rocket.chat/docs/developer-guides/rest-api/users/create/
      */
-    public Boolean createUser(String email, String name, String password, String username) {
+    public Boolean createUser(String email, String name, String password, String username, Account account) {
         HttpURLConnection connection = null;
         String inputLine;
         StringBuffer response = new StringBuffer();
@@ -447,6 +458,7 @@ public class Rocket extends ExtensionHttpHandler {
                 JSONObject obj = new JSONObject(response.toString());
                 String success = obj.getString("success");
                 if ("true".equals(success)) {
+                    sendConfirmation(account, username, password);
                     return true;
                 } else {
                     return false;
@@ -458,6 +470,28 @@ public class Rocket extends ExtensionHttpHandler {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void sendConfirmation(Account account, String username, String password) {
+        try {
+            MimeMessage mm = new Mime.FixedMimeMessage(JMSession.getSmtpSession(account));
+
+            String to = account.getName();
+
+            mm.setRecipient(javax.mail.Message.RecipientType.TO, new JavaMailInternetAddress(to));
+            mm.setContent("Your Rocket Chat account has been created!<br><br>Here are your credentials for the Rocket.Chat App on Android and iPhone:<br><br>Username: " + username + "<br>Password: " + password, MimeConstants.CT_TEXT_HTML);
+            mm.setSubject("Welcome to Rocket Chat");
+            mm.saveChanges();
+
+            Mailbox mbox = MailboxManager.getInstance().getMailboxByAccount(account);
+            MailSender mailSender = mbox.getMailSender();
+
+            mailSender.setSaveToSent(false);
+            mailSender.sendMimeMessage(null, mbox, mm);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
