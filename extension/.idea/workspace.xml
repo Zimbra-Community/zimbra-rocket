@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="186e39d4-6c69-4521-aac0-7125e956e5d3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/extension_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/json.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension.iml" beforeDir="false" afterPath="$PROJECT_DIR$/extension.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/json.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/RocketExtension.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/RocketExtension.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;null&#9;null&#10;getUCUsername&#9;PSI&#9;JAVA://com.zimbra.cs.account.ZAttrAccount#getUCUsername" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -104,107 +109,30 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582123335739">
+      <screen x="0" y="0" width="1920" height="1049" />
+    </state>
+    <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123335739" />
+    <state x="743" y="272" width="436" height="515" key="FileChooserDialogImpl" timestamp="1582123544357">
+      <screen x="0" y="0" width="1920" height="1049" />
+    </state>
+    <state x="743" y="272" width="436" height="515" key="FileChooserDialogImpl/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123544357" />
+    <state x="2363" y="108" width="1036" height="848" key="SettingsEditor" timestamp="1582124863455">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="443" y="105" width="1036" height="848" key="SettingsEditor/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123480390" />
+    <state x="2363" y="108" width="1036" height="848" key="SettingsEditor/0.0.1920.1049/1920.0.1920.1080@1920.0.1920.1080" timestamp="1582124863455" />
     <state width="600" height="424" key="javadoc.popup" timestamp="1582033778502">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="600" height="424" key="javadoc.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1582033778502" />
+    <state x="239" y="140" width="1443" height="777" key="new project wizard" timestamp="1582123556363">
+      <screen x="0" y="0" width="1920" height="1049" />
+    </state>
+    <state x="239" y="140" width="1443" height="777" key="new project wizard/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123556363" />
     <state x="623" y="232" key="search.everywhere.popup" timestamp="1582033773772">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="623" y="232" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1582033773772" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor>
-            <show-content>
-              <type id="library" />
-              <type id="artifact" />
-            </show-content>
-          </artifact-editor>
-          <last-edited>extension:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>extension</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>commons-text-1.4</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

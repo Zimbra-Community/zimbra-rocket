@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="rocket-test:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/rocket_test_jar</output-path>
+    <root id="archive" name="rocket-test.jar">
+      <element id="module-output" name="rocket-test" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../extension/lib/json-20180813.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
