@@ -225,6 +225,7 @@ public class Rocket extends ExtensionHttpHandler {
                 case "createUser":
                     String password = newPassword();
                     if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
+                        resp.setHeader("Content-Type", "text/plain");
                         responseWriter("ok", resp, password);
                     } else {
                         responseWriter("error", resp, null);
@@ -260,6 +261,7 @@ public class Rocket extends ExtensionHttpHandler {
                 case "ok":
                     resp.setStatus(HttpServletResponse.SC_OK);
                     if (message == null) {
+                        resp.setHeader("Content-Type", "text/plain");
                         resp.getWriter().write("OK");
                     } else {
                         resp.getWriter().write(message);
@@ -267,10 +269,12 @@ public class Rocket extends ExtensionHttpHandler {
                     break;
                 case "unauthorized":
                     resp.setHeader("Content-Type", "text/html");
+                    resp.setStatus(HttpServletResponse.SC_OK);
                     resp.getWriter().write("<html><head></head><body><div style=\"background-color:white;color:black;padding:10px\">Please <a target=\"_blank\" href=\"" + this.loginurl + "\">Log in</a>.</div></body>");
                     break;
                 case "error":
-                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    resp.setHeader("Content-Type", "text/plain");
+                    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
                     resp.getWriter().write("The request did not succeed successfully.");
                     break;
             }

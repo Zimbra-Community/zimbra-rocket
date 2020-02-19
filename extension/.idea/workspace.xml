@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="186e39d4-6c69-4521-aac0-7125e956e5d3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zimbraclient.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zimbraclient.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zimbracommon.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zimbracommon.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/zimbrastore.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/zimbrastore.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" afterDir="false" />
@@ -14,20 +11,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>name</find>
-      <find>username</find>
-      <find>accountname</find>
-      <find>getMail</find>
-      <find>getName</find>
-      <find>account</find>
-      <find>LastName</find>
-      <find>sn</find>
-      <find>catch</find>
-      <find>unauthorized</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />

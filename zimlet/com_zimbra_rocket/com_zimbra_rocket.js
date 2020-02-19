@@ -10,9 +10,7 @@ ZimbraRocketZimlet.prototype.init = function () {
    try {
       var zimletInstance = appCtxt._zimletMgr.getZimletByName('com_zimbra_rocket').handlerObject;
       zimletInstance.rocketurl = zimletInstance._zimletContext.getConfig("rocketurl");
-      zimletInstance.createRocketAccount = zimletInstance._zimletContext.getConfig("createRocketAccount");
-      zimletInstance.accountCreateInteger = zimletInstance._zimletContext.getConfig("accountCreateInteger");
-      zimletInstance.userAccountCreateInteger = zimletInstance.getUserProperty("accountCreateInteger")
+      zimletInstance.createRocketAccount = zimletInstance._zimletContext.getConfig("createRocketAccount");      
       
       if(!zimletInstance.userAccountCreateInteger)
       {
@@ -21,15 +19,7 @@ ZimbraRocketZimlet.prototype.init = function () {
    
       if(zimletInstance.createRocketAccount == "true")
       {
-         if(parseInt(zimletInstance.accountCreateInteger) > parseInt(zimletInstance.userAccountCreateInteger))
-         {
-            zimletInstance.setUserProperty("accountCreateInteger", zimletInstance.accountCreateInteger, true);
-            ZimbraRocketZimlet.prototype.createAccount();
-         }
-         else
-         {
-            ZimbraRocketZimlet.prototype.setIframe();
-         }
+         ZimbraRocketZimlet.prototype.createAccount();
       }
       else
       {
@@ -51,25 +41,6 @@ ZimbraRocketZimlet.prototype.setIframe = function()
    app.setContent('<div style="position: fixed; top:'+appPosition.y+'px; left:0; width:100%; height:92%; border:0px;"><iframe id="ZimbraRocketFrame" style="z-index:2; left:0; width:100%; height:100%; border:0px;" src=\"'+zimletInstance._zimletContext.getConfig("rocketurl")+'\"></div>');   
    } catch (err) { console.log (err)} 
 };
-
-/* status method show a Zimbra status message
- * */
-ZimbraRocketZimlet.prototype.status = function(text, type) {
-   var transitions = [ ZmToast.FADE_IN, ZmToast.PAUSE, ZmToast.FADE_OUT ];
-   appCtxt.getAppController().setStatusMsg(text, type, null, transitions);
-}; 
-
-/* Called when the panel is double-clicked.
- */
-ZimbraRocketZimlet.prototype.doubleClicked = function() {
-   this.singleClicked();
-};
-
-/* Called when the panel is single-clicked.
- */
-ZimbraRocketZimlet.prototype.singleClicked = function() {
-
-}; 
 
 /**
  * This method gets called by the Zimlet framework each time the application is opened or closed.
@@ -124,58 +95,12 @@ ZimbraRocketZimlet.prototype.createAccount = function()
          console.log(err);
        };
          
-      xhr.send();
-      xhr.onreadystatechange = function (oEvent) 
+      xhr.onload = function (oEvent) 
       {
-         if (xhr.readyState === 4)
-         { 
-            if (xhr.status === 200) 
-            {
-               if(xhr.response)
-               {
-                  var zimletInstance = appCtxt._zimletMgr.getZimletByName('com_zimbra_rocket').handlerObject;	
-                  zimletInstance._dialog = new ZmDialog( { title:'Your Rocket Chat Account is created', parent:zimletInstance.getShell(), standardButtons:[DwtDialog.OK_BUTTON], disposeOnPopDown:true } );   
-                  zimletInstance._dialog.setContent(
-                  '<div style="width:450px; height:160px;">'+
-                  'Your Rocket Chat account has been created!<br><br>'+
-                  'Here are your credentials for the Rocket.Chat App on Android and iPhone:<br>'+
-                  '<textarea style="width:100%" rows=2>Username: '+appCtxt.getActiveAccount().name.replace('@','.')+'\r\nPassword: '+xhr.response+'</textarea><br><br>'+
-                  'Please store these credentials.<br>'+   
-                  '</div>'
-                  );
-                  
-                  zimletInstance._dialog.setButtonListener(DwtDialog.OK_BUTTON, new AjxListener(zimletInstance, zimletInstance._cancelBtn));
-                  zimletInstance._dialog.setEnterListener(new AjxListener(zimletInstance, zimletInstance._cancelBtn));   
-                                
-                  document.getElementById(zimletInstance._dialog.__internalId+'_handle').style.backgroundColor = '#eeeeee';
-                  document.getElementById(zimletInstance._dialog.__internalId+'_title').style.textAlign = 'center';
-                  zimletInstance._dialog.popup(); 
-                  ZimbraRocketZimlet.prototype.setIframe(); 
-               }   
-            }
-            if (xhr.status === 500) 
-            {
-               if(xhr.response)
-               {
-                  ZimbraRocketZimlet.prototype.status("Could not create your Rocket Chat Account", ZmStatusView.LEVEL_CRITICAL);
-                  ZimbraRocketZimlet.prototype.setIframe(); 
-               }   
-            }
-
-         }
-      }
+         ZimbraRocketZimlet.prototype.setIframe();          
+      };
+      xhr.send();
    } catch (err) {     
       console.log(err);
    }
-};
-
-ZimbraRocketZimlet.prototype._cancelBtn =
-function() {
-   var zimletInstance = appCtxt._zimletMgr.getZimletByName('com_zimbra_rocket').handlerObject;
-   
-   try{
-      zimletInstance._dialog.setContent('');
-      zimletInstance._dialog.popdown();
-   }
-   catch (err) {}
 };

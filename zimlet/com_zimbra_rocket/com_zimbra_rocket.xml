@@ -1,12 +1,9 @@
 <zimlet name="com_zimbra_rocket"
-        version="0.0.4"
+        version="0.0.5"
         target="main compose-window view-window"
         label="Zimbra Rocket"
         description="Zimbra Rocket">
     <include>com_zimbra_rocket.js</include>
     <includeCSS>com_zimbra_rocket.css</includeCSS>
    <handlerObject>com_zimbra_rocket_HandlerObject</handlerObject>
-   <userProperties>
-      <property type="string" label="" name="accountCreateInteger" rows="1"/>
-   </userProperties>   
 </zimlet>

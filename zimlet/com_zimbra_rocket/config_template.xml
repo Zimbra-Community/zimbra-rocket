@@ -8,27 +8,12 @@ rocketurl =  the url to your rocket chat instance
 The rocket Zimbra server extension automatically creates
 accounts for each Zimbra account in Rocket, to enable account
 creation set createRocketAccount = true
-
-accountCreateInteger (for migration purposes)
-
-Whenever the account has been created by Zimbra the accountCreateInteger
-on the Users Zimlet userProperties is incremented. The Zimlet will not
-re-attempt to create the users account, unless the accountCreateInteger
-in the Users Zimlet userProperties is < the one set in the Zimlets configuration
-template. 
-
-This will help you in case you want to run a fresh install of Rocket, but with
-an existing deployment of Zimbra OR in case you merge multiple Zimbra instances
-to a single instance. In which case you can increment the accountCreateInteger
-in the configuration template to make sure all users have their account
-created.
-            
+           
 -->
 <zimletConfig name="com_zimbra_rocket" version="1.0">
     <global>
         <property name="rocketurl">https://rocketserverhere.org/</property>
         <property name="createRocketAccount">true</property>
-        <property name="accountCreateInteger">1</property>
     </global>
 </zimletConfig>
 
