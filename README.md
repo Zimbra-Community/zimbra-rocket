@@ -73,6 +73,21 @@ Edit the /tmp/config_template.xml.tmp file according to your needs. Import the n
 
       zmzimletctl configure /tmp/config_template.xml.tmp
 
+
+## Debugging
+
+To check your configuration (config.properties) for typos and make sure you have no firewall issues, you can run the test tool on your Zimbra server. This will try and read your `/opt/zimbra/lib/ext/rocket/config.properties` and make a request to your Rocket server for debugging, without needing to dig through Zimbra's log files.
+
+     su zimbra
+     cd /tmp
+     wget https://github.com/Zimbra-Community/zimbra-rocket/raw/master/rocket-test/out/artifacts/rocket_test_jar/rocket-test.jar -O /tmp/rocket-test.jar
+     /opt/zimbra/common/lib/jvm/java/bin/java -jar /tmp/rocket-test.jar
+
+It should report some `adminAuthToken` and report `Configuration seems correct!`. If not, check the printed stack traces for clues as to what is wrong. `HTTP response code: 401` means username/password of admin is wrong.
+
+In addition to this we also have https://github.com/Zimbra-Community/zimbra-rocket/wiki/Debugging for instructions on how to debug using curl.
+
+
 ## Clean up authentication tokens
 Their appears to be an issue in meteor (the platform on which Rocket is build) that results in authentication tokens not being purged. This is a performance and security issue, as one user record can have thousands of valid tokens slowing down the db. To fix this configure a clean-up cron.
 
