@@ -225,17 +225,29 @@ public class Rocket extends ExtensionHttpHandler {
             switch (paramsMap.get("action")) {
                 case "createUser":
                     String password = newPassword();
-                    //if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
-                    if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
-                        resp.setHeader("Content-Type", "text/plain");
-                        responseWriter("ok", resp, password);
+                    if (this.domain != "") {
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
+                            resp.setHeader("Content-Type", "text/plain");
+                            responseWriter("ok", resp, password);
+                        } else {
+                            responseWriter("error", resp, null);
+                        }
                     } else {
-                        responseWriter("error", resp, null);
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
+                            resp.setHeader("Content-Type", "text/plain");
+                            responseWriter("ok", resp, password);
+                        } else {
+                            responseWriter("error", resp, null);
+                        }
                     }
                     break;
                 case "signOn":
                     String token;
-                    token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+                    if (this.domain != "") {
+                        token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
+                    } else {
+                        token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+                    }
                     if (!"".equals(token)) {
                         resp.setHeader("Content-Type", "application/json");
                         responseWriter("ok", resp, "{\"loginToken\":\"" + token + "\"}");

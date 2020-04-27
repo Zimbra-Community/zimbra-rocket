@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="186e39d4-6c69-4521-aac0-7125e956e5d3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/zimbra-rocket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/zimbra-rocket.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +101,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1535528855442</updated>
-      <workItem from="1587993991321" duration="1006000" />
+      <workItem from="1587993991321" duration="1765000" />
     </task>
     <servers />
   </component>
@@ -117,10 +113,11 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="760" y="99" key="#Project_Structure/2560.0.1536.840/-1920.0.1920.1050/0.0.2560.1050@0.0.2560.1050" timestamp="1587994089855" />
-    <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582123335739">
-      <screen x="0" y="0" width="1920" height="1049" />
+    <state x="557" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587995047551">
+      <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123335739" />
+    <state x="557" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.0.1536.840/-1920.0.1920.1050/0.0.2560.1050@0.0.2560.1050" timestamp="1587995047551" />
     <state x="991" y="272" width="436" height="515" key="FileChooserDialogImpl" timestamp="1587994507784">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
