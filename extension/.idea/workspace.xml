@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="186e39d4-6c69-4521-aac0-7125e956e5d3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/extension_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/json.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/zimbra-rocket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/zimbra-rocket.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension.iml" beforeDir="false" afterPath="$PROJECT_DIR$/extension.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/json.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/extension_jar/extension.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/Rocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/RocketExtension.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/extension/tk/barrydegraaff/rocket/RocketExtension.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tk/barrydegraaff/rocket/Rocket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,13 +21,16 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SearchEverywhereHistoryKey" value="&#9;null&#9;null&#10;getUCUsername&#9;PSI&#9;JAVA://com.zimbra.cs.account.ZAttrAccount#getUCUsername" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -105,18 +105,27 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1535528855442</updated>
+      <workItem from="1587993991321" duration="1006000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="760" y="99" key="#Project_Structure" timestamp="1587994089855">
+      <screen x="0" y="0" width="2560" height="1050" />
+    </state>
+    <state x="760" y="99" key="#Project_Structure/2560.0.1536.840/-1920.0.1920.1050/0.0.2560.1050@0.0.2560.1050" timestamp="1587994089855" />
     <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582123335739">
       <screen x="0" y="0" width="1920" height="1049" />
     </state>
     <state x="418" y="185" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123335739" />
-    <state x="743" y="272" width="436" height="515" key="FileChooserDialogImpl" timestamp="1582123544357">
-      <screen x="0" y="0" width="1920" height="1049" />
+    <state x="991" y="272" width="436" height="515" key="FileChooserDialogImpl" timestamp="1587994507784">
+      <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="743" y="272" width="436" height="515" key="FileChooserDialogImpl/0.0.1920.1049/1920.0.1920.1080@0.0.1920.1049" timestamp="1582123544357" />
+    <state x="991" y="272" key="FileChooserDialogImpl/2560.0.1536.840/-1920.0.1920.1050/0.0.2560.1050@0.0.2560.1050" timestamp="1587994507784" />
     <state x="2363" y="108" width="1036" height="848" key="SettingsEditor" timestamp="1582124863455">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
