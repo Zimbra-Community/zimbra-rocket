@@ -248,6 +248,15 @@ public class Rocket extends ExtensionHttpHandler {
                     } else {
                         token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
                     }
+                      // Creating a File object that represents the disk file. 
+                         PrintStream o = new PrintStream(new File("rocket.txt")); 
+
+                         // Store current System.out before assigning a new value 
+                         PrintStream console = System.out; 
+
+                         // Assign o to output stream 
+                         System.setOut(o); 
+                         System.out.println(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
                     if (!"".equals(token)) {
                         resp.setHeader("Content-Type", "application/json");
                         responseWriter("ok", resp, "{\"loginToken\":\"" + token + "\"}");
