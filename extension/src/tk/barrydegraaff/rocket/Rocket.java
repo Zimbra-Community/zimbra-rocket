@@ -150,6 +150,7 @@ public class Rocket extends ExtensionHttpHandler {
     private String adminPassword;
     private String rocketURL;
     private String loginurl;
+    private String domaininusername;
 
     /**
      * Processes HTTP POST requests.
@@ -224,16 +225,29 @@ public class Rocket extends ExtensionHttpHandler {
             switch (paramsMap.get("action")) {
                 case "createUser":
                     String password = newPassword();
-                    if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
-                        resp.setHeader("Content-Type", "text/plain");
-                        responseWriter("ok", resp, password);
+                    if (this.domaininusername == "true") {
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
+                            resp.setHeader("Content-Type", "text/plain");
+                            responseWriter("ok", resp, password);
+                        } else {
+                            responseWriter("error", resp, null);
+                        }
                     } else {
-                        responseWriter("error", resp, null);
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
+                            resp.setHeader("Content-Type", "text/plain");
+                            responseWriter("ok", resp, password);
+                        } else {
+                            responseWriter("error", resp, null);
+                        }
                     }
                     break;
                 case "signOn":
                     String token;
-                    token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+                    if (this.domaininusername == "true") {
+                        token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+                    } else {
+                        token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
+                    }
                     if (!"".equals(token)) {
                         resp.setHeader("Content-Type", "application/json");
                         responseWriter("ok", resp, "{\"loginToken\":\"" + token + "\"}");
@@ -305,6 +319,7 @@ public class Rocket extends ExtensionHttpHandler {
             this.adminPassword = prop.getProperty("adminpassword");
             this.rocketURL = prop.getProperty("rocketurl");
             this.loginurl = prop.getProperty("loginurl");
+            this.domaininusername = prop.getProperty("domaininusername");
             input.close();
         } catch (Exception ex) {
             ex.printStackTrace();
