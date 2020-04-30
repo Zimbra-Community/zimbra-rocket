@@ -150,7 +150,7 @@ public class Rocket extends ExtensionHttpHandler {
     private String adminPassword;
     private String rocketURL;
     private String loginurl;
-    private String domain;
+    private String domaininusername;
 
     /**
      * Processes HTTP POST requests.
@@ -225,7 +225,7 @@ public class Rocket extends ExtensionHttpHandler {
             switch (paramsMap.get("action")) {
                 case "createUser":
                     String password = newPassword();
-                    if (this.domain != "") {
+                    if (this.domaininusername != "") {
                         if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
                             resp.setHeader("Content-Type", "text/plain");
                             responseWriter("ok", resp, password);
@@ -243,7 +243,7 @@ public class Rocket extends ExtensionHttpHandler {
                     break;
                 case "signOn":
                     String token;
-                    if (this.domain != "") {
+                    if (this.domaininusername != "") {
                         token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
                     } else {
                         token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
@@ -319,7 +319,7 @@ public class Rocket extends ExtensionHttpHandler {
             this.adminPassword = prop.getProperty("adminpassword");
             this.rocketURL = prop.getProperty("rocketurl");
             this.loginurl = prop.getProperty("loginurl");
-            this.domain = prop.getProperty("domain");
+            this.domaininusername = prop.getProperty("domaininusername");
             input.close();
         } catch (Exception ex) {
             ex.printStackTrace();
