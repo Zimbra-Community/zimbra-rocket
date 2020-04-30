@@ -225,15 +225,15 @@ public class Rocket extends ExtensionHttpHandler {
             switch (paramsMap.get("action")) {
                 case "createUser":
                     String password = newPassword();
-                    if (this.domaininusername != "") {
-                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
+                    if (this.domaininusername == "true") {
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
                             resp.setHeader("Content-Type", "text/plain");
                             responseWriter("ok", resp, password);
                         } else {
                             responseWriter("error", resp, null);
                         }
                     } else {
-                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
+                        if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")), zimbraAccount)) {
                             resp.setHeader("Content-Type", "text/plain");
                             responseWriter("ok", resp, password);
                         } else {
@@ -243,10 +243,19 @@ public class Rocket extends ExtensionHttpHandler {
                     break;
                 case "signOn":
                     String token;
-                    if (this.domaininusername != "") {
-                        token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
-                    } else {
+                    if (this.domaininusername == "true") {
                         token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+                    } else {
+                        token = this.setUserAuthToken(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
+                        // Creating a File object that represents the disk file.
+                        PrintStream o = new PrintStream(new File("rocket.txt"));
+
+                        // Store current System.out before assigning a new value
+                        PrintStream console = System.out;
+
+                        // Assign o to output stream
+                        System.setOut(o);
+                        System.out.println(zimbraAccount.getName().substring(0, zimbraAccount.getName().indexOf("@")));
                     }
                     if (!"".equals(token)) {
                         resp.setHeader("Content-Type", "application/json");
