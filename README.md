@@ -32,7 +32,7 @@ For this you need to set-up the Java server extension copy it from https://githu
         loginurl=https://mail.example.org
         domaininusername=true
 
-This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. The domaininusername when set to true will create/logon users with their zimbra email address (replacing @ with a . ) i.e user@example.com will be user.example.com. When set to false, the username name would simply be "user". Don't forget `zmmailboxdctl restart`. 
+This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. The domaininusername property when set to true will create/logon users with their zimbra email address (replacing @ with a . ) i.e user@example.com will be user.example.com. When set to false, the username account would simply be "user". Don't forget `zmmailboxdctl restart`. 
 
 You must also configure Rocket chat like so:
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/zimbra-rocket-iframe.png)
@@ -55,7 +55,7 @@ Edit the /tmp/config_template.xml.tmp file according to your needs. Import the n
       zmzimletctl configure /tmp/config_template.xml.tmp
 
 2. **Logon-only integration**
-Follow the same steps as under `Full integration` except when configuring the Zimlet set `createRocketAccount` to `false`.  The Zimlet assumes you created the account on Rocket chat. So if your Zimbra account is user@example.com a Rocket user account user.example.com should exist.
+Follow the same steps as under `Full integration` except when configuring the Zimlet set `createRocketAccount` to `false`.  The Zimlet assumes you created the account on Rocket chat. So if your Zimbra account is user@example.com a Rocket user account user.example.com should exist, unless you configured domaininusername in config.properties to true. In that, case the zimlet assumes account"user" exists.
 
 3. **Basic integration**
 In this case you may want to configure Rocket to use Zimbra LDAP. See steps below.
