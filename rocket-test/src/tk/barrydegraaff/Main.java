@@ -18,6 +18,7 @@ public class Main {
         String adminPassword;
         String rocketURL;
         String loginurl;
+        String domaininusername;
 
         StringBuffer response = new StringBuffer();
 
@@ -29,6 +30,8 @@ public class Main {
             adminPassword = prop.getProperty("adminpassword");
             rocketURL = prop.getProperty("rocketurl");
             loginurl = prop.getProperty("loginurl");
+            domaininusername = prop.getProperty("domaininusername");
+            System.out.println(domaininusername);
             input.close();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f374e215-e8f7-4123-ab25-2940bf33da5c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/tk/barrydegraaff/rocket/Rocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/tk/barrydegraaff/rocket/Rocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rocket-test/src/tk/barrydegraaff/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/rocket-test/src/tk/barrydegraaff/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zimlet/com_zimbra_rocket/com_zimbra_rocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/zimlet/com_zimbra_rocket/com_zimbra_rocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +40,7 @@
       <option name="presentableId" value="Default" />
       <updated>1582032851748</updated>
       <workItem from="1587994510498" duration="711000" />
-      <workItem from="1587996829008" duration="3224000" />
+      <workItem from="1587996829008" duration="7601000" />
     </task>
     <servers />
   </component>
