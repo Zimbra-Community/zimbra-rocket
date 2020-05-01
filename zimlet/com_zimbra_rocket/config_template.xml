@@ -14,6 +14,7 @@ creation set createRocketAccount = true
     <global>
         <property name="rocketurl">https://rocketserverhere.org/</property>
         <property name="createRocketAccount">true</property>
+        <property name="tabLabel">Rocket.Chat</property>
     </global>
 </zimletConfig>
 
