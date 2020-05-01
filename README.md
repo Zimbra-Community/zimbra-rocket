@@ -30,8 +30,9 @@ For this you need to set-up the Java server extension copy it from https://githu
         adminpassword=adminPassword
         rocketurl=https://rocket.example.org
         loginurl=https://mail.example.org
+        domaininusername=true
 
-This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. Don't forget `zmmailboxdctl restart`.
+This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. The domaininusername when set to true will create/logon users with their zimbra email address (replacing @ with a . ) i.e user@example.com will be user.example.com. When set to false, the username name would simply be "user". Don't forget `zmmailboxdctl restart`. 
 
 You must also configure Rocket chat like so:
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/zimbra-rocket-iframe.png)
