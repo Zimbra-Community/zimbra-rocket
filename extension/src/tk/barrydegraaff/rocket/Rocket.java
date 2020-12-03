@@ -215,7 +215,7 @@ public class Rocket extends ExtensionHttpHandler {
                 paramsMap.put(subParam[0], subParam[1]);
             }
         } else {
-            responseWriter("ok", resp, null);
+            responseWriter("Configure the Zimlet to complete the installation.", resp, null);
             return;
         }
 
