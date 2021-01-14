@@ -31,7 +31,7 @@ For this you need to set-up the Java server extension copy it from https://githu
         rocketurl=https://rocket.example.org
         loginurl=https://mail.example.org
 
-This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. Don't forget `zmmailboxdctl restart`.
+This adminuser and password you should have created when you first installed Rocket. The loginurl is the place where we point users to that have not yet authenticated. This can be your SSO login page or the Zimbra login page. Don't forget `zmmailboxdctl restart`. Do not put a / at the end of rocketurl! Make sure to configure X-Frame-Options/Access-Control-Allow-Origin on the Rocket Chat server side. You must remove this headers in a reverse proxy and add the correct ones for the integration to work. See the proxy-config for a basic example nginx/apache config.
 
 You must also configure Rocket chat like so:
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/zimbra-rocket-iframe.png)
