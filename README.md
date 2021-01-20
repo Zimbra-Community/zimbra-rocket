@@ -6,20 +6,27 @@ In this Repository you will find a simple Zimlet to connect Zimbra Collaboration
 
 # Instructions
 ## How to install Rocket Chat
-On this github we will not cover the installation of Rocket Chat, as it's perfectly explained here:
-* https://rocket.chat/docs/installation/minimum-requirements
-* https://www.digitalocean.com/community/tutorials/how-to-install-configure-and-deploy-rocket-chat-on-ubuntu-14-04
-* https://www.howtoforge.com/tutorial/how-to-install-rocket-chat-with-nginx-on-ubuntu-16-04/
 
-# Check permissions in Rocket Chat IMPORTANT!
-As of Rocket Chat version 2.1.0 you must set the CREATE_TOKENS_FOR_USERS environment variable for this integration to work. If you use snaps:
+Follow the instruction for setting up Rocket Chat using Snap on Ubuntu 18. 
+
+- https://docs.rocket.chat/installation/snaps
+
+## Allow API tokens to be used
 
     echo "CREATE_TOKENS_FOR_USERS=true" > /var/snap/rocketchat-server/common/create-tokens.env
     sudo systemctl restart snap.rocketchat-server.rocketchat-server.service
-        
-Rocket Chat is designed to be deployed on Docker or Ubuntu Snap, which is really great:
-* https://rocket.chat/docs/installation/docker-containers/
-* https://rocket.chat/docs/installation/manual-installation/ubuntu/snaps/
+
+## Set up a reverse proxy
+
+This will allow you to use TLS/SSL and configure headers needed for the integration. See the proxy-config folder for a basic example nginx/apache config.
+
+      apt install nginx
+      systemctl enable nginx   
+
+Modify the config in `/etc/nginx/sites-enabled/default` as per the example in proxy-config folder.
+
+      systemctl start nginx
+
 
 ## This Zimlet supports optional auto-login to Rocket using the Rocket API
 This Zimlet can automatically log your users on to Rocket chat and even automatically create new users on Rocket chat. That way you only need to maintain the user accounts on Zimbra (full integration). Or you can maintain your Rocket accounts via LDAP or manually, but still log them on automatically (logon-only integration). Or you can just deploy only the Zimlet and let the user decide on the authentication (basic integration).
