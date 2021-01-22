@@ -1,4 +1,4 @@
-# Zimbra Rocket
+# Zimbra RocketChat
 
 In this Repository you will find a simple Zimlet to connect Zimbra Collaboration with Rocket Chat, and make an amazing integration with both inside the Zimbra Web Client, it will look like:
 
@@ -94,23 +94,6 @@ It should report some `adminAuthToken` and report `Configuration seems correct!`
 
 In addition to this we also have https://github.com/Zimbra-Community/zimbra-rocket/wiki/Debugging for instructions on how to debug using curl.
 
-
-## Clean up authentication tokens
-Their appears to be an issue in meteor (the platform on which Rocket is build) that results in authentication tokens not being purged. This is a performance and security issue, as one user record can have thousands of valid tokens slowing down the db. To fix this configure a clean-up cron.
-
-Create a file /usr/local/sbin/rocket-token-purge with contents:
-
-      #!/bin/bash
-      cd /snap/rocketchat-server/*/
-      ./bin/mongo parties --eval 'db.users.update({}, { $set: { "services.resume.loginTokens": []}},{multi: true})'
-      
-run `chmod +rx /usr/local/sbin/rocket-token-purge` and put it in cron `crontab -e` like so:
-
-      2 3 1 * * /usr/local/sbin/rocket-token-purge
-      
-This will log people out of the Rocket.Chat app on their phone, so they need to re-enter their credentials.
-
-See also: https://github.com/RocketChat/Rocket.Chat/issues/6738
 
 ## Make you Zimbra Admin a Rocket Admin, creation of RocketChat Admins
 
