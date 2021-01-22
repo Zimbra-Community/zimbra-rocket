@@ -112,6 +112,17 @@ This will log people out of the Rocket.Chat app on their phone, so they need to 
 
 See also: https://github.com/RocketChat/Rocket.Chat/issues/6738
 
+## Make you Zimbra Admin a Rocket Admin, creation of RocketChat Admins
+
+Once you have enabled iframe-authentication you will not be able to log-in directly using the RocketChat log-in page. In most cases you will not be able to log in to the RocketChat administrative account. To fix this you can promote a regular user account to have an admin role. Log on to Zimbra and go to the RocketChat tab of the account you wish to use as admin and verify the account name. Example admin@zimbra.example.com becomes admin.zimbra.example.com in RocketChat. Promote this user on RocketChat server like this:
+
+      cd /snap/rocketchat-server/current
+      ./bin/mongo parties --eval 'db.users.update({username:"admin.zimbra.example.com"}, {$set: {'roles' : [ "admin" ]}})'
+
+## Separation of tenants
+
+This Zimlet does not separate tenants from Zimbra, so all users on your Zimbra server that have access to the RocketChat Zimlet will have an account on RocketChat and will be able to see and chat with each other. Accounts on RocketChat are created if/when the user logs-in on Zimbra. To remove a user from RocketChat you have to remove them on RocketChat and de-activate them in Zimbra or disable the RocketChat Zimlet for the user you want to remove from RocketChat. 
+
 ## How to Configure Rocket Chat with Zimbra LDAP (optional)
 Configure Rocket Chat with the Zimbra LDAP is really easy, and you must follow the next steps:
 
@@ -128,15 +139,6 @@ On the next fields, please fill them as shown:
 
 On the latest fields, fill them as shown and finally click on test, and Sync users, and Save
 ![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/rocket-004.png)
-
-# Special Bonus, Zimbra Talk Integration and Zimbra Rocket
-Zimbra Rocket doesn't end into an amazing look-a-like Slack experience, and you can even integrate your Zimbra Talk to make video calls between users, one-to-one and one-to-many, follow the next steps to enable it:
-
-Go to Administration > Videoconference and add your Zimbra Talk FQDN, and the Zimbra Talk Chrome ID for the Share Screen Feature:
-![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/rocket-009.png)
-
-Then the users will be able to call each other, or to groups by using the camera icon:
-![Zimbra Rocket](https://raw.githubusercontent.com/Zimbra-Community/zimbra-rocket/master/img/rocket-010.png)
 
 # Troubleshooting
 https://github.com/Zimbra-Community/zimbra-rocket/wiki/Debugging
