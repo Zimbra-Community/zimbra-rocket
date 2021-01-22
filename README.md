@@ -114,7 +114,7 @@ See also: https://github.com/RocketChat/Rocket.Chat/issues/6738
 
 ## Make you Zimbra Admin a Rocket Admin, creation of RocketChat Admins
 
-Once you have enabled iframe-authentication you will not be able to log-in directly using the RocketChat log-in page. In most cases you will not be able to log in to the RocketChat administrative account. To fix this you can promote a regular user account to have an admin role. Log on to Zimbra and go to the RocketChat tab of the account you wish to use as admin and verify the account name. Example admin@zimbra.example.com becomes admin.zimbra.example.com in RocketChat. Promote this user on RocketChat server like this:
+Once you have enabled iframe-authentication you will not be able to log-in directly using the RocketChat log-in page. In most cases you will not be able to log in to the RocketChat administrative account. To fix this you can promote a regular user account to have an admin role. Log on to Zimbra and go to the RocketChat tab of the account you wish to use as admin and verify the account name. Example `admin@zimbra.example.com` becomes `admin.zimbra.example.com` in RocketChat. Promote this user on RocketChat server like this:
 
       cd /snap/rocketchat-server/current
       ./bin/mongo parties --eval 'db.users.update({username:"admin.zimbra.example.com"}, {$set: {'roles' : [ "admin" ]}})'
