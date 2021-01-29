@@ -33,8 +33,6 @@ During 2020 Google and various vendors have been pushing the requirement to set 
 
 RocketChat sets cookies on the client via Javascript and does not support configuring the SameSite attribute, which is needed for it to run on a different domain than Zimbra. This means that RocketChat needs to be installed on a subdomain similar to Zimbra. Aka zimbramail.example.com and rocketchat.example.com will work, zimbramail.example.io and rocketchat.example.com will not work.
 
-https://security.stackexchange.com/questions/223473/for-samesite-cookie-with-subdomains-what-are-considered-the-same-site
-
 ## This Zimlet supports optional auto-login to Rocket using the Rocket API
 This Zimlet can automatically log your users on to Rocket chat and even automatically create new users on Rocket chat. That way you only need to maintain the user accounts on Zimbra (full integration). Or you can maintain your Rocket accounts via LDAP or manually, but still log them on automatically (logon-only integration). Or you can just deploy only the Zimlet and let the user decide on the authentication (basic integration).
 1. **Full integration**
