@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2018  Barry de Graaff
+Copyright (C) 2018-2021  Barry de Graaff
 
 The MIT License
 
@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 API implementation for Zimbra -> Rocket Chat..
+https://docs.rocket.chat/guides/developer/iframe-integration/authentication#iframe-url
 
 signOn
 https://zimbradev/service/extension/rocket?action=signOn
@@ -54,6 +55,8 @@ the integration and promote that to admin. Aka user.example.com.
 
 Otherwise you may lock yourself out.
 
+  cd /snap/rocketchat-server/current
+  ./bin/mongo parties --eval 'db.users.update({username:"admin.zimbra.example.com"}, {$set: {'roles' : [ "admin" ]}})'
 
 You can debug using the following commands:
 
@@ -101,6 +104,11 @@ This command will tell you why the creation of a user failed.
 package tk.barrydegraaff.rocket;
 
 
+import com.zimbra.common.service.ServiceException;
+import com.zimbra.common.soap.Element;
+import com.zimbra.common.soap.SoapHttpTransport;
+import com.zimbra.common.soap.SoapProtocol;
+import com.zimbra.cs.account.*;
 import com.zimbra.cs.extension.ExtensionHttpHandler;
 
 import javax.servlet.ServletException;
@@ -115,10 +123,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-import com.zimbra.cs.account.AuthToken;
-import com.zimbra.cs.account.Provisioning;
-import com.zimbra.cs.account.Account;
-import com.zimbra.cs.account.Cos;
+import com.zimbra.soap.JaxbUtil;
+import com.zimbra.soap.account.message.AuthRequest;
+import com.zimbra.soap.account.message.AuthResponse;
 import org.json.JSONObject;
 
 import com.zimbra.common.mime.MimeConstants;
@@ -131,6 +138,7 @@ import com.zimbra.cs.mailbox.Mailbox;
 import com.zimbra.cs.mailbox.MailboxManager;
 import com.zimbra.cs.mime.Mime;
 import com.zimbra.cs.util.JMSession;
+import com.zimbra.soap.type.AccountSelector;
 
 public class Rocket extends ExtensionHttpHandler {
 
@@ -150,6 +158,7 @@ public class Rocket extends ExtensionHttpHandler {
     private String adminPassword;
     private String rocketURL;
     private String loginurl;
+    private Boolean isMobile;
 
     /**
      * Processes HTTP POST requests.
@@ -161,7 +170,55 @@ public class Rocket extends ExtensionHttpHandler {
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        resp.getOutputStream().print("tk.barrydegraaff.rocket is installed. HTTP POST method is not supported");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        this.initializeRocketAPI();
+        resp.setHeader("Access-Control-Allow-Origin", this.rocketURL);
+        resp.setHeader("Access-Control-Allow-Credentials", "true");
+        String token;
+        try {
+            AccountSelector acctSel = new AccountSelector(com.zimbra.soap.type.AccountBy.name, username);
+            SoapHttpTransport transport = new SoapHttpTransport(getSoapUrl());
+            AuthRequest authReq = new AuthRequest(acctSel, password);
+            Element authRespElem = transport.invoke(JaxbUtil.jaxbToElement(authReq, SoapProtocol.SoapJS.getFactory()));
+            AuthResponse authResp = JaxbUtil.elementToJaxb(authRespElem);
+            String authTokenStr = authResp.getAuthToken();
+
+            AuthToken authToken = AuthToken.getAuthToken(authTokenStr);
+            Provisioning prov = Provisioning.getInstance();
+            Account zimbraAccount = prov.getInstance().getAccountById(authToken.getAccountId());
+
+            this.createUser(zimbraAccount);
+            token = this.setUserAuthToken(zimbraAccount.getName().replace("@", "."));
+            if (!"".equals(token)) {
+                resp.setHeader("Content-Type", "text/html");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("<html><head></head><body><script>\r\nwindow.parent.postMessage({\r\n  event: 'login-with-token',\r\n  loginToken: '" + token + "'\r\n}, '" + this.rocketURL + "');\r\n</script></body>");
+            } else {
+                responseWriter("error", resp, null);
+            }
+        } catch (Exception ex) {
+            //not logged in
+            responseWriter("error", resp, null);
+            return;
+        }
+    }
+
+    public static String getSoapUrl() throws ServiceException {
+        String scheme;
+        Provisioning prov = Provisioning.getInstance();
+        Server server = prov.getLocalServer();
+        String hostname = server.getServiceHostname();
+        int port;
+        port = server.getIntAttr(Provisioning.A_zimbraMailSSLPort, 0);
+        if (port > 0) {
+            scheme = "https";
+        } else {
+            port = server.getIntAttr(Provisioning.A_zimbraMailPort, 0);
+            scheme = "http";
+        }
+        return scheme + "://" + hostname + ":" + port + "/service/soap";
     }
 
     /**
@@ -176,6 +233,12 @@ public class Rocket extends ExtensionHttpHandler {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String authTokenStr = null;
         Account zimbraAccount = null;
+        String userAgent = req.getHeader("User-Agent").toString().toLowerCase();
+        this.isMobile = false;
+        if (userAgent.contains("android") || userAgent.contains("iphone") || userAgent.contains("electron")) {
+            this.isMobile = true;
+        }
+
         //Just read a cos value to see if its a valid user
         try {
             Cookie[] cookies = req.getCookies();
@@ -191,7 +254,7 @@ public class Rocket extends ExtensionHttpHandler {
             if (authTokenStr != null) {
                 AuthToken authToken = AuthToken.getAuthToken(authTokenStr);
                 Provisioning prov = Provisioning.getInstance();
-                zimbraAccount = Provisioning.getInstance().getAccountById(authToken.getAccountId());
+                zimbraAccount = prov.getInstance().getAccountById(authToken.getAccountId());
                 Cos cos = prov.getCOS(zimbraAccount);
                 Set<String> allowedDomains = cos.getMultiAttrSet(Provisioning.A_zimbraProxyAllowedDomains);
             } else {
@@ -200,8 +263,7 @@ public class Rocket extends ExtensionHttpHandler {
             }
 
         } catch (Exception ex) {
-            //crafted cookie? get out you.
-            ex.printStackTrace();
+            //not logged in
             responseWriter("unauthorized", resp, null);
             return;
         }
@@ -223,10 +285,9 @@ public class Rocket extends ExtensionHttpHandler {
         if (this.initializeRocketAPI()) {
             switch (paramsMap.get("action")) {
                 case "createUser":
-                    String password = newPassword();
-                    if (this.createUser(zimbraAccount.getName(), zimbraAccount.getGivenName() + " " + zimbraAccount.getSn(), password, zimbraAccount.getName().replace("@", "."), zimbraAccount)) {
+                    if (this.createUser(zimbraAccount)) {
                         resp.setHeader("Content-Type", "text/plain");
-                        responseWriter("ok", resp, password);
+                        responseWriter("ok", resp, null);
                     } else {
                         responseWriter("error", resp, null);
                     }
@@ -268,9 +329,15 @@ public class Rocket extends ExtensionHttpHandler {
                     }
                     break;
                 case "unauthorized":
-                    resp.setHeader("Content-Type", "text/html");
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    resp.getWriter().write("<html><head></head><body><div style=\"background-color:white;color:black;padding:10px\">Please <a target=\"_blank\" href=\"" + this.loginurl + "\">Log in</a>.</div></body>");
+                    if (!this.isMobile) {
+                        resp.setHeader("Content-Type", "text/html");
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        resp.getWriter().write("<html><head></head><body><div style=\"background-color:white;color:black;padding:10px\">Please <a target=\"_blank\" href=\"" + this.loginurl + "\">Log in</a>.</div></body>");
+                    } else {
+                        resp.setHeader("Content-Type", "text/html");
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        resp.getWriter().write("<html><head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><div style='background-color:white;color:black;padding:10px;font-family:sans-serif'><form action='/service/extension/rocket' method='POST'>  <label style='display: inline-block;width:100px' for='username'>User name:</label>  <input type='text' id='username' name='username'><br><br>  <label style='display: inline-block;width:100px' for='password'>Password:</label>  <input type='password' id='password' name='password'><br><br>  <input type='submit' value='Submit'></form></div></body>");
+                    }
                     break;
                 case "error":
                     resp.setHeader("Content-Type", "text/plain");
@@ -423,8 +490,13 @@ public class Rocket extends ExtensionHttpHandler {
     /**
      * Implements: https://rocket.chat/docs/developer-guides/rest-api/users/create/
      */
-    public Boolean createUser(String email, String name, String password, String username, Account account) {
+    public Boolean createUser(Account account) {
+        String email = account.getName();
+        String name = account.getGivenName() + " " + account.getSn();
+        String username = account.getName().replace("@", ".");
+
         HttpURLConnection connection = null;
+        String password = newPassword();
         String inputLine;
         StringBuffer response = new StringBuffer();
         try {
@@ -484,7 +556,7 @@ public class Rocket extends ExtensionHttpHandler {
             String to = account.getName();
 
             mm.setRecipient(javax.mail.Message.RecipientType.TO, new JavaMailInternetAddress(to));
-            mm.setContent("Your Rocket Chat account has been created!<br><br>Here are your credentials for the Rocket.Chat App on Android and iPhone:<br><br>Username: " + username + "<br>Password: " + password, MimeConstants.CT_TEXT_HTML);
+            mm.setContent("Your Rocket.Chat account has been created!<br><br>You must log-on to Rocket.Chat using your Zimbra credentials.<br>For changes to crucial settings inside RocketChat you may need these additional credentials:<br><br>Username: " + username + "<br>Password: " + password, MimeConstants.CT_TEXT_HTML);
             mm.setSubject("Welcome to Rocket Chat");
             mm.saveChanges();
 
