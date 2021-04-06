@@ -132,7 +132,7 @@ work. If you want more details, refer to
          zmzimletctl configure /tmp/config_template.xml.tmp
 
 
-2.  For Zimbra 9 get zimbra-zimlet-rocketchat.zip (from Github releases) and as Zimbra user:
+2.  For Zimbra 9 get zimbra-zimlet-rocketchat.zip (from Github releases at https://github.com/Zimbra/zimbra-zimlet-rocketchat) and as Zimbra user:
 
          zmzimletctl deploy zimbra-zimlet-rocketchat.zip
 
