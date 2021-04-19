@@ -159,6 +159,7 @@ public class Rocket extends ExtensionHttpHandler {
     private String rocketURL;
     private String loginurl;
     private Boolean isMobile;
+    private String enableWelcomeEmail;
 
     /**
      * Processes HTTP POST requests.
@@ -372,6 +373,7 @@ public class Rocket extends ExtensionHttpHandler {
             this.adminPassword = prop.getProperty("adminpassword");
             this.rocketURL = prop.getProperty("rocketurl");
             this.loginurl = prop.getProperty("loginurl");
+            this.enableWelcomeEmail = prop.getProperty("enableWelcomeEmail"); //may be null
             input.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -551,20 +553,21 @@ public class Rocket extends ExtensionHttpHandler {
 
     private void sendConfirmation(Account account, String username, String password) {
         try {
-            MimeMessage mm = new Mime.FixedMimeMessage(JMSession.getSmtpSession(account));
+            if (!"false".equals(this.enableWelcomeEmail)) {
+                MimeMessage mm = new Mime.FixedMimeMessage(JMSession.getSmtpSession(account));
+                String to = account.getName();
 
-            String to = account.getName();
+                mm.setRecipient(javax.mail.Message.RecipientType.TO, new JavaMailInternetAddress(to));
+                mm.setContent("Your Rocket.Chat account has been created!<br><br>You must log-on to Rocket.Chat using your Zimbra credentials.<br>For changes to crucial settings inside RocketChat you may need these additional credentials:<br><br>Username: " + username + "<br>Password: " + password, MimeConstants.CT_TEXT_HTML);
+                mm.setSubject("Welcome to Rocket Chat");
+                mm.saveChanges();
 
-            mm.setRecipient(javax.mail.Message.RecipientType.TO, new JavaMailInternetAddress(to));
-            mm.setContent("Your Rocket.Chat account has been created!<br><br>You must log-on to Rocket.Chat using your Zimbra credentials.<br>For changes to crucial settings inside RocketChat you may need these additional credentials:<br><br>Username: " + username + "<br>Password: " + password, MimeConstants.CT_TEXT_HTML);
-            mm.setSubject("Welcome to Rocket Chat");
-            mm.saveChanges();
+                Mailbox mbox = MailboxManager.getInstance().getMailboxByAccount(account);
+                MailSender mailSender = mbox.getMailSender();
 
-            Mailbox mbox = MailboxManager.getInstance().getMailboxByAccount(account);
-            MailSender mailSender = mbox.getMailSender();
-
-            mailSender.setSaveToSent(false);
-            mailSender.sendMimeMessage(null, mbox, mm);
+                mailSender.setSaveToSent(false);
+                mailSender.sendMimeMessage(null, mbox, mm);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

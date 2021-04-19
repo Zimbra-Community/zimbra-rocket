@@ -93,6 +93,7 @@ Setting up Zimbra
         adminpassword=adminPassword
         rocketurl=https://rocket.example.org
         loginurl=https://zimbra.example.org
+        enableWelcomeEmail=true
 
     -   The `adminuser` and `adminpassword` should have been created
         when you first installed Rocket Chat.
